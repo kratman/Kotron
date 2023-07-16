@@ -1,25 +1,32 @@
 package src
 
-class Perceptron(size: Int) {
+class Perceptron(size: Int, learnRate: Double = 1.0) {
     private val model: MutableList<Double>
-    private var bias: Double
+    private var rate: Double
 
     init {
         model = MutableList(size) {0.0}
-        bias = 0.0
+        rate = learnRate
     }
 
-    private fun trainingStep() {
-
+     fun trainingStep(answer: Boolean, features: MutableList<Double>) {
+        val sign: Double = if (answer) -1.0 else 1.0
+        val result = sign * evaluate(features)
+        for (i in 0 .. model.size) {
+            model[i] += rate * result * features[i]
+        }
     }
 
-    fun classify(features: MutableList<Double>): Boolean {
-        assert(features.size != model.size) {"Incorrect number of features"}
+    private fun evaluate(features: MutableList<Double>): Double {
+        assert(features.size == model.size) {"Incorrect number of features!"}
         var sum = 0.0
         for (i in 0 until model.size) {
             sum += model[i] * features[i]
         }
-        sum += bias
-        return sum > 0
+        return sum
+    }
+
+    fun classify(features: MutableList<Double>): Boolean {
+        return evaluate(features) > 0.0
     }
 }
