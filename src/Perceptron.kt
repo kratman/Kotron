@@ -10,10 +10,12 @@ class Perceptron(size: Int, learnRate: Double = 1.0) {
     }
 
      fun trainingStep(answer: Boolean, features: MutableList<Double>) {
-        val sign: Double = if (answer) -1.0 else 1.0
-        val result = sign * evaluate(features)
+        val goal: Double = if (answer) 1.0 else -1.0
+        val result = evaluate(features)
         for (i in 0 until model.size) {
-            model[i] += rate * result * features[i]
+            if (answer != classFromValue(result)) {
+                model[i] += rate * goal * features[i]
+            }
         }
     }
 
@@ -27,6 +29,10 @@ class Perceptron(size: Int, learnRate: Double = 1.0) {
     }
 
     fun classify(features: MutableList<Double>): Boolean {
-        return evaluate(features) > 0.0
+        return classFromValue(evaluate(features))
+    }
+
+    private fun classFromValue(value: Double): Boolean {
+        return value >= 0.0
     }
 }

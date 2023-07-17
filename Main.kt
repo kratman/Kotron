@@ -13,8 +13,8 @@ fun main() {
 
 fun trainFor(target: Int): Perceptron {
     val trainingData = readData("train", target)
-    val aModel = Perceptron(trainingData[0].features.size, 0.5)
-    StochasticOptimizer(50).optimize(aModel, trainingData)
+    val aModel = Perceptron(trainingData[0].features.size, 0.05)
+    StochasticOptimizer(100).optimize(aModel, trainingData)
     return aModel
 }
 
