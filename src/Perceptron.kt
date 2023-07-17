@@ -12,7 +12,7 @@ class Perceptron(size: Int, learnRate: Double = 1.0) {
      fun trainingStep(answer: Boolean, features: MutableList<Double>) {
         val sign: Double = if (answer) -1.0 else 1.0
         val result = sign * evaluate(features)
-        for (i in 0 .. model.size) {
+        for (i in 0 until model.size) {
             model[i] += rate * result * features[i]
         }
     }
