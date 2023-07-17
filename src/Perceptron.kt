@@ -12,8 +12,8 @@ class Perceptron(size: Int, learnRate: Double = 1.0) {
      fun trainingStep(answer: Boolean, features: MutableList<Double>) {
         val goal: Double = if (answer) 1.0 else -1.0
         val result = evaluate(features)
-        for (i in 0 until model.size) {
-            if (answer != classFromValue(result)) {
+        if (answer != classFromValue(result)) {
+            for (i in 0 until model.size) {
                 model[i] += rate * goal * features[i]
             }
         }

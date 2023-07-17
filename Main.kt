@@ -14,7 +14,7 @@ fun main() {
 fun trainFor(target: Int): Perceptron {
     val trainingData = readData("train", target)
     val aModel = Perceptron(trainingData[0].features.size, 0.05)
-    StochasticOptimizer(100).optimize(aModel, trainingData)
+    StochasticOptimizer(200).optimize(aModel, trainingData)
     return aModel
 }
 
